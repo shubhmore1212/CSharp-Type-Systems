@@ -8,47 +8,70 @@ namespace BethanyPieShopHRM
     {
         static void Main(string[] args)
         {
-            StringOperations();
-            ParsingOperations();
+            int num1 = 10;
+            //C# is by default pass by value
+            //For pass by reference use ref or out
+            //If using ref, then it is mandatory to initialize first
+            //For out me can return multiple values
+            Console.WriteLine($"Before Pass By Value Method {num1}");
+            CheckForPassByValue(num1);
+            Console.WriteLine($"After Pass By Value Method {num1}");
+
+            Console.WriteLine($"Before Pass By Reference Method {num1}");
+            CheckForPassByReference(ref num1);
+            Console.WriteLine($"After Pass By Reference Method {num1}");
+
+            //Using params Keyword
+            //represents array to capture multiple parameters, available through array in method body
+            //if before hand we don't know how many arguments are sent
+            //params should be last
+            int average = CalculateAverage(10, 20, 30, 40);
+            Console.WriteLine(average);
+
+            //Optional Parameter
+            Console.WriteLine(CheckForOptionalParameters(10,20));//10+20+10=40
+            Console.WriteLine(CheckForOptionalParameters(10,20,30));//10+20+30=60
+
+            //Named Arguments
+            //No need to follow order
+            CheckForNamedParameters(num: 10, name: "Hello");
+
+            Console.WriteLine(CalculateSum(10,20));
         }
 
-        static void StringOperations()
+        //Expresssion body syntax
+        public static int CalculateSum(int num1, int num2) => num1 + num2;
+
+        static void CheckForNamedParameters(string name,int num)
         {
-            string myString = "Hello";
-
-            Console.WriteLine(myString.Length);
-            Console.WriteLine(myString.ToUpper());
-            Console.WriteLine(myString.ToLower());
-            Console.WriteLine(myString.Contains("Hello"));
-            Console.WriteLine(myString.Replace("e", "a"));
-            Console.WriteLine(myString.Substring(2, 3));
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Hello");
-            sb.Append(" world");
-            sb.AppendLine("!");
-            Console.WriteLine(sb.ToString());
+            Console.WriteLine($"{name} and {num}");
         }
 
-        static void ParsingOperations()
+        private static int CalculateAverage(params int[] arr)
         {
-            Console.WriteLine("Enter Wage"); ;
-            string? wage = Console.ReadLine();
+            int sum = 0;
+            foreach (int item in arr)
+            {
+                sum += item;
+            }
 
-            int wageValue;
-            if (int.TryParse(wage, out wageValue))
-                Console.WriteLine("Success: ", wageValue);
-            else
-                Console.WriteLine("Failure");
-
-            string hireDateString = "12/12/2020";
-            DateTime hireDate = DateTime.Parse(hireDateString);
-            Console.WriteLine(hireDate);
-
-            var cultureInfo = new CultureInfo("nl-BE");
-            string birthDateString = "28 March 1984"; //Dutch, spoken in Belgium
-            var birthDate = DateTime.Parse(birthDateString, cultureInfo);
-            Console.WriteLine(birthDate);
+            return sum / arr.Length;
         }
+
+        static int CheckForOptionalParameters(int num1, int num2, int num3 = 10)
+        {
+            return num1 + num2 + num3;
+        }
+
+        static void CheckForPassByValue(int num)
+        {
+            num *= 10;
+        }
+
+        static void CheckForPassByReference(ref int num)
+        {
+            num *= 10;
+        }
+
     }
 }
