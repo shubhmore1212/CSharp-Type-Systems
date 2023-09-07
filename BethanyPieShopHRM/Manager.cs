@@ -14,8 +14,8 @@ namespace BethanyPieShopHRM
 
         public override double ReceiveWage()
         {
-            double wageBeforeTax = wage * 10;
-            double taxAmount = wage * taxRate;
+            double wageBeforeTax = Wage * 10;
+            double taxAmount = Wage * taxRate;
 
             return wageBeforeTax - taxAmount;
         }

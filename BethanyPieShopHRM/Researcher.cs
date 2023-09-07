@@ -14,14 +14,14 @@ namespace BethanyPieShopHRM
 
         public override void GiveBonus()
         {
-            wage += 100;
-            Console.WriteLine($"Researcher Gets Bonus : {wage}");
+            Wage += 100;
+            Console.WriteLine($"Researcher Gets Bonus : {Wage}");
         }
 
         public override double ReceiveWage()
         {
-            double wageBeforeTax = wage * 18;
-            double taxAmount = wage * taxRate;
+            double wageBeforeTax = Wage * 18;
+            double taxAmount = Wage * taxRate;
 
             return wageBeforeTax - taxAmount;
         }
