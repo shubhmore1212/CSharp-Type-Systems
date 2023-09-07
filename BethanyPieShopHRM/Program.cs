@@ -8,47 +8,63 @@ namespace BethanyPieShopHRM
     {
         static void Main(string[] args)
         {
-            StringOperations();
-            ParsingOperations();
+            //UsingEnumeration();
+            UsingStruct();
+            Console.WriteLine();
         }
 
-        static void StringOperations()
+        private static void UsingStruct()
         {
-            string myString = "Hello";
-
-            Console.WriteLine(myString.Length);
-            Console.WriteLine(myString.ToUpper());
-            Console.WriteLine(myString.ToLower());
-            Console.WriteLine(myString.Contains("Hello"));
-            Console.WriteLine(myString.Replace("e", "a"));
-            Console.WriteLine(myString.Substring(2, 3));
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Hello");
-            sb.Append(" world");
-            sb.AppendLine("!");
-            Console.WriteLine(sb.ToString());
+            Employee employee;
+            employee.Name = "Harish";
+            employee.Wage = 1250;
+            employee.Work();
         }
 
-        static void ParsingOperations()
+        private static void UsingEnumeration()
         {
-            Console.WriteLine("Enter Wage"); ;
-            string? wage = Console.ReadLine();
+            EmployeeType manager = EmployeeType.Manager;
+            EmployeeType research = EmployeeType.Research;
+            CalculateWage(1000, manager);
+            CalculateWage(1000, research);
+        }
 
-            int wageValue;
-            if (int.TryParse(wage, out wageValue))
-                Console.WriteLine("Success: ", wageValue);
+        private static void CalculateWage(int baseWage,EmployeeType empType)
+        {
+            int calculateWage;
+
+            if (empType == EmployeeType.Manager)
+            {
+                calculateWage = baseWage*3;
+            }
             else
-                Console.WriteLine("Failure");
+            {
+                calculateWage = baseWage*2;
+            }
 
-            string hireDateString = "12/12/2020";
-            DateTime hireDate = DateTime.Parse(hireDateString);
-            Console.WriteLine(hireDate);
-
-            var cultureInfo = new CultureInfo("nl-BE");
-            string birthDateString = "28 March 1984"; //Dutch, spoken in Belgium
-            var birthDate = DateTime.Parse(birthDateString, cultureInfo);
-            Console.WriteLine(birthDate);
+            Console.WriteLine(calculateWage);
         }
     }
-}
+
+    enum EmployeeType
+    {
+        Sales,          //0
+        Manager,        //1
+        Research,       //2
+        StoreManager=99 //99
+    }
+
+    //Struct represent a custom data-structure,value type,can contain methods and other members
+    //can say light weight classes
+    struct Employee
+    {
+        public string Name;
+        public int Wage;
+
+        public void Work()
+        {
+            Console.WriteLine($"{Name} is now doing work.");
+        }
+    }
+
+} 
